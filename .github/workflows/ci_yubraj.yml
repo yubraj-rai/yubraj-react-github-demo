@@ -1,0 +1,39 @@
+name: CI React Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: List all files before directory change
+        run: ls -ltr
+
+      - name: Change directory to yubraj-vite-react-app and list files
+        run: |
+          cd yubraj-vite-react-app
+          ls -ltr
+
+      - name: Install react dependencies
+        working-directory: yubraj-vite-react-app
+        run: npm install
+
+      - name: Run Tests
+        working-directory: yubraj-vite-react-app
+        run: npm run test
+
+      - name: Build Project
+        working-directory: yubraj-vite-react-app
+        run: npm run build
